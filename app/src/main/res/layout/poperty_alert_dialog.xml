@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="14dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Path: "
+            android:padding="2dp"
+            android:textStyle="bold"
+            android:textColor="@color/txt_title" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text=""
+            android:textColor="@color/txt_title"
+            android:paddingRight="2dp"
+            android:id="@+id/txt_path" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Size : "
+            android:padding="2dp"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:textColor="@color/txt_title" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text=""
+            android:textColor="@color/txt_title"
+            android:paddingRight="2dp"
+            android:id="@+id/txt_size" />
+    </LinearLayout>
+</LinearLayout>

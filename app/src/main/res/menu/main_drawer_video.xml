@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_more_app"
+            android:icon="@drawable/ic_more"
+            android:title="More Apps" />
+
+        <item
+            android:id="@+id/nav_gdpr"
+            android:icon="@drawable/ic_more"
+            android:title="Change Relevant Ads Show" />
+
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/ic_more"
+            android:title="Privacy Policy" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share With Friends" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_star"
+            android:title="Rate Us" />
+
+    </group>
+</menu>

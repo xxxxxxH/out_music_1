@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#222223</color>
+    <color name="colorPrimaryDark">#373948</color>
+    <color name="colorAccent">#00BCEC</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent_text">#99ffffff</color>
+    <color name="transparent_bg_white">#44ffffff</color>
+
+    <color name="icon">#333333</color>
+
+    <color name="txt_title">#000000</color>
+    <color name="txt_sub">#EEEEEE</color>
+    <color name="white">#ffffff</color>
+    <color name="queue_current_play">#559cf7f9</color>
+    <color name="txt_shadow">#000000</color>
+    <color name="forground">#44000000</color>
+    <color name="forground_theme">#33000000</color>
+    <color name="background">#11000000</color>
+    <color name="popup_background">#DD000000</color>
+    <color name="queue_list_background">#AA000000</color>
+    <color name="setting_background">#0D000000</color>
+
+    <!--color for player screeen circle seekbar color-->
+    <color name="circle_progress_color">#FF0000</color>
+    <color name="circle_color">#11FFFFFF</color>
+    <color name="circle_pointer_color">#FF0000</color>
+    <color name="circle_pointer_holo_color">#88FF0000</color>
+    <!-- ****************************   -->
+
+    <!--colors for ring tone cutter's screen waveform-->
+    <color name="waveform_selected">#33b5e5</color>
+    <color name="waveform_unselected">#195a72</color>
+    <color name="waveform_unselected_bkgnd_overlay">#0a242d</color>
+    <color name="selection_border">#ffffff</color>
+    <color name="playback_indicator">#ffff66</color>
+    <color name="grid_line">#66ffffff</color>
+    <color name="timecode">#ddffffdd</color>
+    <color name="timecode_shadow">#aa000000</color>
+
+
+    <!--  *****************        -->
+
+    <color name="seekbar_strock">#AAFFFFFF</color>
+    <color name="seekbar">#AAF39505</color>
+    <color name="seekbar_brightness">#E7D10E</color>
+    <color name="seekbar_volume">#0E9BE7</color>
+</resources>

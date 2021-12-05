@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ad_queue"
+        android:icon="@drawable/ic_round_add"
+        android:title="Add to Queue"></item>
+
+    <item
+        android:icon="@drawable/ic_round_add"
+        android:title="Add to Playlist"></item>
+    <item
+        android:icon="@drawable/ic_list"
+        android:title="Property"></item>
+    <!--<item android:id="@+id/id_set_delete" android:title="Delete"></item>-->
+    <item
+        android:icon="@drawable/ic_cutter"
+        android:title="Ringtone Cutter"></item>
+    <item
+        android:icon="@drawable/ic_ring_tone"
+        android:title="Set Ringtone"></item>
+    <item
+        android:icon="@drawable/ic_share_menu"
+        android:title="Share"></item>
+
+
+</menu>

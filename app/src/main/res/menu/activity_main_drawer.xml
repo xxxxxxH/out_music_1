@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_myfolders"
+            android:icon="@drawable/ic_folder_white_24dp"
+            android:title="My Folders" />
+        <item
+            android:id="@+id/nav_myplaylist"
+            android:icon="@drawable/ic_list_white"
+            android:title="My Playlist" />
+        <item
+            android:id="@+id/nav_ringtone"
+            android:icon="@drawable/ic_ringtone"
+            android:title="Call Record" />
+        <item
+            android:id="@+id/nav_equalizer"
+            android:icon="@drawable/ic_equalizer"
+            android:title="Equalizer" />
+
+        <item
+            android:id="@+id/nav_myhistory"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My History" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_rateus"
+            android:icon="@drawable/ic_star"
+            android:title="Rate Us" />
+    </group>
+
+</menu>

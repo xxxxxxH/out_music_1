@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/slidingpanel_header"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/popup_background">
+
+        <LinearLayout
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="match_parent"
+            android:padding="7dp"
+            android:layout_alignParentLeft="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_album_footer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/splash_icon"
+                android:padding="1dp"
+                android:layout_centerInParent="true"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/white"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_marginRight="4dp"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_song_name_footer_layout"
+                    android:singleLine="true"
+                    android:textSize="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:textColor="@color/white"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:shadowColor="@color/txt_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3"
+                    android:text="Tere Liye" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_sub"
+                    android:singleLine="true"
+                    android:textSize="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="Sunidhi Chauhan,Arijit Singh"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:shadowColor="@color/txt_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3"
+                    android:id="@+id/txt_artist_name_footer_layout" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/linear_play"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_start_time_footer_layout"
+                android:text="00:00"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/forground"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/img_play_song_footer_layout"
+                app:srcCompat="@drawable/ic_play_circle_outline"
+                android:layout_gravity="right"
+                android:padding="7dp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/linear_queue"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/img_queue_list"
+                    app:srcCompat="@drawable/ic_list_white_24dp"
+                    android:padding="10dp"
+                    android:layout_toLeftOf="@+id/img_play_menu_footer"
+                    android:layout_toStartOf="@+id/img_play_menu_footer"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/img_delete_list"
+                    app:srcCompat="@drawable/ic_delete_black"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:layout_toLeftOf="@+id/img_play_menu_footer"
+                    android:layout_toStartOf="@+id/img_play_menu_footer"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/img_play_menu_footer"
+                    app:srcCompat="@drawable/ic_more"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

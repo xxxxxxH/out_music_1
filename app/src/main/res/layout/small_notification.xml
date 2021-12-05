@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/txt_title">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/img_album_notificationbar_layout"
+        android:src="@mipmap/splash_icon"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:id="@+id/linearLayout"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_marginRight="5dp"
+                android:singleLine="true"
+                android:textIsSelectable="true"
+                android:id="@+id/txt_songname_notificationbar_layout"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:id="@+id/txt_singername_notificationbar_layout"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:weightSum="4"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+
+            >
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:id="@+id/img_previous_notificationbar_layout"
+                android:src="@drawable/ic_skip_previous"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:id="@+id/img_play_notificationbar_layout"
+                android:src="@drawable/ic_play_circle_outline"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:id="@+id/img_next_notificationbar_layout"
+                android:src="@drawable/ic_skip_next"
+                />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:id="@+id/img_remove_notificationbar_layout"
+                android:src="@drawable/ic_close"
+                android:padding="5dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

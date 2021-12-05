@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/img_song_alertqueue_item"
+        android:padding="7dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/placeholder"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2 States (2014)"
+        android:id="@+id/txt_song_name_alertqueue_item"
+        android:ellipsize="end"
+        android:textColor="@color/txt_title"
+        android:layout_marginRight="7dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/img_song_alertqueue_item"
+        android:layout_toEndOf="@+id/img_song_alertqueue_item" />
+
+</RelativeLayout>

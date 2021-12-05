@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="match_parent">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/background"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            xmlns:sothree="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sliding_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:background="@android:color/transparent"
+            sothree:theme="@style/AppTheme"
+            sothree:umanoDragView="@+id/dragView"
+            sothree:umanoClipPanel="false"
+            sothree:umanoOverlay="false"
+            sothree:umanoPanelHeight="?android:attr/actionBarSize"
+            sothree:umanoShadowHeight="4dp">
+
+            <!-- MAIN CONTENT -->
+
+            <FrameLayout
+                android:id="@+id/framlayout_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/dragView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/music_player_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/popup_background"
+            app:itemTextColor="@color/white"
+            app:headerLayout="@layout/nav_header_main"
+            app:itemIconTint="@android:color/white"
+            app:menu="@menu/activity_main_drawer" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+    </RelativeLayout>
