@@ -63,18 +63,14 @@ class AlbumAdapter(data: List<AlbumModel>, context: Context, activity: Activity)
 //                        mInterstitialAd!!.show()
 //                    } else {
                         GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                            AlbumDetailFragment().newInstance(
-                                dataItem.id,
-                                dataItem.title
-                            ), "AlbumDetailFragment", activity
+                            AlbumDetailFragment( dataItem.id,
+                                dataItem.title), "AlbumDetailFragment", activity
                         )
 //                    }
                 } else {
                     GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                        AlbumDetailFragment().newInstance(
-                            dataItem.id,
-                            dataItem.title
-                        ), "AlbumDetailFragment", activity
+                        AlbumDetailFragment( dataItem.id,
+                            dataItem.title), "AlbumDetailFragment", activity
                     )
                 }
             }

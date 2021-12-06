@@ -12,9 +12,9 @@
         android:icon="@drawable/ic_list"
         android:title="Property"></item>
     <!--<item android:id="@+id/id_set_delete" android:title="Delete"></item>-->
-    <item
-        android:icon="@drawable/ic_cutter"
-        android:title="Ringtone Cutter"></item>
+<!--    <item-->
+<!--        android:icon="@drawable/ic_cutter"-->
+<!--        android:title="Ringtone Cutter"></item>-->
     <item
         android:icon="@drawable/ic_ring_tone"
         android:title="Set Ringtone"></item>

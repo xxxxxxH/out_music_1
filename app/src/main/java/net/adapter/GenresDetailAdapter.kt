@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.Controls.MusicPlayerControls
 import net.basicmodel.R
-import net.fragment.GenresDetailFragment.Companion.genresid
 import net.general.GlobalApp
 import net.model.SongsModel
 import net.utils.GenerAlbumLoader
@@ -27,21 +26,21 @@ class GenresDetailAdapter(data: ArrayList<SongsModel>?, context: Context, activi
     var activity: Activity
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var txt_song_name: TextView
-        var txt_song_artist: TextView
-        var img_song: ImageView
-        var cardView: CardView
-        var linear_more: LinearLayout
-        var albumsRecyclerView: RecyclerView
+        var txt_song_name: TextView?=null
+        var txt_song_artist: TextView?=null
+        var img_song: ImageView?=null
+        var cardView: CardView?=null
+        var linear_more: LinearLayout?=null
+        var albumsRecyclerView: RecyclerView?=null
 
         init {
-            txt_song_name = itemView.findViewById<View>(R.id.txt_song_name) as TextView
-            txt_song_artist = itemView.findViewById<View>(R.id.txt_songs_artist) as TextView
-            img_song = itemView.findViewById<View>(R.id.img_song) as ImageView
-            cardView = itemView.findViewById<View>(R.id.card_view) as CardView
-            linear_more = itemView.findViewById<View>(R.id.linear_more) as LinearLayout
+            txt_song_name = itemView.findViewById<TextView>(R.id.txt_song_name)
+            txt_song_artist = itemView.findViewById<TextView>(R.id.txt_songs_artist)
+            img_song = itemView.findViewById<ImageView>(R.id.img_song)
+            cardView = itemView.findViewById<CardView>(R.id.card_view)
+            linear_more = itemView.findViewById<LinearLayout>(R.id.linear_more)
             albumsRecyclerView =
-                itemView.findViewById<View>(R.id.recycler_view_album) as RecyclerView
+                itemView.findViewById<RecyclerView>(R.id.recycler_view_album)
         }
     }
 
@@ -63,14 +62,14 @@ class GenresDetailAdapter(data: ArrayList<SongsModel>?, context: Context, activi
     override fun onBindViewHolder(holder: MyViewHolder, listPosition: Int) {
         if (getItemViewType(listPosition) == 0) {
             //nothing
-            setUpAlbums(holder.albumsRecyclerView)
+            setUpAlbums(holder.albumsRecyclerView!!)
         } else {
-            holder.txt_song_name.text = dataSet!![listPosition - 1].title
-            holder.txt_song_artist.text = dataSet[listPosition - 1].artist
+            holder.txt_song_name!!.text = dataSet!![listPosition - 1].title
+            holder.txt_song_artist!!.text = dataSet[listPosition - 1].artist
             Picasso.get().load(dataSet[listPosition - 1].img_uri)
                 .placeholder(R.drawable.musicalicon).error(R.drawable.musicalicon)
                 .into(holder.img_song)
-            holder.cardView.setOnClickListener {
+            holder.cardView!!.setOnClickListener {
                 MusicPlayerControls.startSongsWithQueue(
                     context,
                     dataSet,
@@ -78,7 +77,7 @@ class GenresDetailAdapter(data: ArrayList<SongsModel>?, context: Context, activi
                     "genresdetail"
                 )
             }
-            holder.img_song.setOnClickListener {
+            holder.img_song!!.setOnClickListener {
                 MusicPlayerControls.startSongsWithQueue(
                     context,
                     dataSet,
@@ -86,7 +85,7 @@ class GenresDetailAdapter(data: ArrayList<SongsModel>?, context: Context, activi
                     "genresdetail"
                 )
             }
-            holder.linear_more.setOnClickListener {
+            holder.linear_more!!.setOnClickListener {
                 GlobalApp.showPopUp(
                     holder.linear_more, context, activity,
                     dataSet[listPosition - 1]
@@ -113,7 +112,7 @@ class GenresDetailAdapter(data: ArrayList<SongsModel>?, context: Context, activi
         albumsRecyclerview.setHasFixedSize(true)
         albumsRecyclerview.isNestedScrollingEnabled = false
         val mAlbumAdapter =
-            ArtistAlbumAdapter(activity, GenerAlbumLoader.getAlbumsForGener(context, genresid))
+            ArtistAlbumAdapter(activity, GenerAlbumLoader.getAlbumsForGener(context, 0))
         albumsRecyclerview.adapter = mAlbumAdapter
     }
 

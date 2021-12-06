@@ -1,5 +1,6 @@
 package net.fragment
 
+//import com.google.android.gms.ads.AdRequest
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,13 +10,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.view.*
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-//import com.google.android.gms.ads.AdRequest
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.theme_fragment.*
 import net.adapter.SnowFlakeAdapter
 import net.adapter.ThemeAdapter
@@ -43,6 +49,24 @@ class ThemeFragment : Fragment() {
     var opacity_value = 0
     var is_show_snowfallview = false
     private var sp: SharedPreferences? = null
+
+    var rc_background: RecyclerView? = null
+    var rc_flake: RecyclerView? = null
+    var rel_seekbar: RelativeLayout? = null
+    var toolbar: Toolbar? = null
+
+    private val RESULT_LOAD_IMAGE = 1
+
+    var appBarLayout: AppBarLayout? = null
+    var seek_transparent: SeekBar? = null
+    var seek_blur:SeekBar? = null
+    var img_gallary: ImageView? = null
+    var txt_snow_fall_effect: TextView? = null
+    var checkbox_snow: AppCompatCheckBox? = null
+    var rel_snow_check: RelativeLayout? = null
+
+    // String main_image_background = "";
+    var bmpPic: Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (GlobalApp.sharedpreferences == null) {
@@ -80,7 +104,7 @@ class ThemeFragment : Fragment() {
         if (GlobalApp.flakeArrayList.size == 0) {
 //            SplashActivity.flakeImage()
         }
-        Initialize()
+        Initialize(view)
         editor = GlobalApp.sharedpreferences!!.edit()
         seek_transparent!!.progress = temp_transpant_progress
         seek_blur!!.progress = blur_seekbar_pos
@@ -196,7 +220,21 @@ class ThemeFragment : Fragment() {
         editor!!.commit()
     }
 
-    private fun Initialize() {
+    private fun Initialize(view: View) {
+        txt_snow_fall_effect = view.findViewById<View>(R.id.txt_snow_fall_effect) as TextView
+        checkbox_snow = view.findViewById<View>(R.id.checkbox_snow) as AppCompatCheckBox
+        rel_snow_check = view.findViewById<View>(R.id.rel_check) as RelativeLayout
+
+        ThemeFragment.rel_seekbar = view.findViewById<View>(R.id.rel_seekbar) as RelativeLayout
+        ThemeFragment.rel_seekbar = view.findViewById<View>(R.id.rel_seekbar) as RelativeLayout
+        rc_flake = view.findViewById<View>(R.id.rc_flake) as RecyclerView
+        rc_background = view.findViewById<View>(R.id.rc_background) as RecyclerView
+
+        img_gallary = view.findViewById<View>(R.id.img_gallary) as ImageView
+        appBarLayout = view.findViewById<View>(R.id.appbar) as AppBarLayout
+        ThemeFragment.seek_blur = view.findViewById<View>(R.id.seek_blur) as SeekBar
+        ThemeFragment.seek_transparent = view.findViewById<View>(R.id.seek_transparent) as SeekBar
+
         rc_background!!.setHasFixedSize(true)
         rc_background!!.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -300,9 +338,9 @@ class ThemeFragment : Fragment() {
         val msg = event.getMessage()
         when (msg[0]) {
             "ThemeFragment" -> {
-                rel_seekbar.visibility = View.GONE
-                seek_blur.progress = 0
-                seek_transparent.progress = 0
+                rel_seekbar!!.visibility = View.GONE
+                seek_blur!!.progress = 0
+                seek_transparent!!.progress = 0
             }
         }
     }

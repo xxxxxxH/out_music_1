@@ -171,16 +171,12 @@ class ArtistAdapter(data: List<ArtistModel>, context: Context, act: Activity) :
 //                        mInterstitialAd!!.show()
 //                    } else {
                         GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                            ArtistDetailFragment().newInstance(
-                                dataSet[position].id, dataSet[position].name
-                            ), "ArtistDetailFragment", activity
+                            ArtistDetailFragment(  dataSet[position].id, dataSet[position].name), "ArtistDetailFragment", activity
                         )
 //                    }
                 } else {
                     GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                        ArtistDetailFragment().newInstance(
-                            dataSet[position].id, dataSet[position].name
-                        ), "ArtistDetailFragment", activity
+                        ArtistDetailFragment(dataSet[position].id, dataSet[position].name), "ArtistDetailFragment", activity
                     )
                 }
             }

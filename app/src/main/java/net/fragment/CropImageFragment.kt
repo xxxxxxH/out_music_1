@@ -13,10 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import kotlinx.android.synthetic.main.act_crop_image.*
 import net.basicmodel.R
 import net.event.MessageEvent
 import net.general.GlobalApp
@@ -27,6 +27,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class CropImageFragment : Fragment() {
+    var cropImageView: CropImageView? = null
     fun newInstance(type: String?): CropImageFragment {
         return CropImageFragment()
     }
@@ -37,10 +38,13 @@ class CropImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.act_crop_image, container, false)
+        val toolbar = view.findViewById<View>(R.id.toolbar) as Toolbar
+        cropImageView = view.findViewById<View>(R.id.cropImageView) as CropImageView
         setHasOptionsMenu(true)
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener { (activity as AppCompatActivity).supportFragmentManager.popBackStack() }
         cropImageView!!.isAutoZoomEnabled = true
         cropImageView!!.setFixedAspectRatio(true)
         cropImageView!!.cropShape = CropImageView.CropShape.RECTANGLE

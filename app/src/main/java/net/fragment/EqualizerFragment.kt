@@ -66,7 +66,7 @@ class EqualizerFragment : Fragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         var i: Int
         val view = inflater.inflate(R.layout.equalizer_fragment, container, false)
         initialization(view)
@@ -298,6 +298,8 @@ class EqualizerFragment : Fragment(),
 
             //setTheme();
         }
+
+        toolbar!!.setNavigationOnClickListener { activity!!.supportFragmentManager.popBackStack() }
         return view
     }
 

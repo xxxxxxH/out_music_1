@@ -8,10 +8,12 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.folders_fragment.*
 import net.Listner.OnItemClickListener
 import net.MyApplication
@@ -28,6 +30,9 @@ class FolderFragmentNew : Fragment(), OnItemClickListener {
     var onItemClickListener: OnItemClickListener? = null
     var folderAdapter: FolderAudioAdapter? = null
     var toolbar: Toolbar? = null
+
+    var mProgressBar: ProgressBar? = null
+    var videoRecyclerView: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,13 +42,17 @@ class FolderFragmentNew : Fragment(), OnItemClickListener {
         app = requireActivity().application as MyApplication
         mPreferencesUtility = PreferencesUtility.getInstance(app!!.instance)
         onItemClickListener = this
+        toolbar = view.findViewById<View>(R.id.toolbar) as Toolbar
+        mProgressBar = view.findViewById(R.id.progressBar)
+        videoRecyclerView = view.findViewById(R.id.recyclerview)
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(true)
-        recyclerview.setHasFixedSize(true)
+        videoRecyclerView!!.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(app!!.instance)
-        recyclerview.layoutManager = layoutManager
+        videoRecyclerView!!.layoutManager = layoutManager
         FetchFolderList().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null as Void?)
+        toolbar!!.setNavigationOnClickListener { (activity as AppCompatActivity).supportFragmentManager.popBackStack() }
         return view
     }
 
@@ -119,14 +128,14 @@ class FolderFragmentNew : Fragment(), OnItemClickListener {
         override fun onPostExecute(result: List<FolderSongs>) {
             super.onPostExecute(result)
             if (result.isNotEmpty()) {
-                progressBar.visibility = View.GONE
+                mProgressBar!!.visibility = View.GONE
                 folderAdapter = FolderAudioAdapter(
                     app!!.instance,
                     activity,
                     result,
                     onItemClickListener
                 )
-                recyclerview.adapter = folderAdapter
+                videoRecyclerView!!.adapter = folderAdapter
                 app!!.folderSongs = result
             }
         }

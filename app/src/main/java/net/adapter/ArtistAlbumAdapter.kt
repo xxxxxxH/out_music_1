@@ -70,16 +70,12 @@ class ArtistAlbumAdapter(context: Activity, arraylist: List<AlbumModel>?) :
 //                    mInterstitialAd!!.show()
 //                } else {
                     GlobalApp.sharedInstance(mContext)!!.fragmentReplaceTransition(
-                        AlbumDetailFragment().newInstance(
-                            arraylist!![adapterPosition].id, arraylist[adapterPosition].title
-                        ), "AlbumDetailFragment", mContext
+                        AlbumDetailFragment(arraylist!![adapterPosition].id, arraylist[adapterPosition].title), "AlbumDetailFragment", mContext
                     )
 //                }
             } else {
                 GlobalApp.sharedInstance(mContext)!!.fragmentReplaceTransition(
-                    AlbumDetailFragment().newInstance(
-                        arraylist!![adapterPosition].id, arraylist[adapterPosition].title
-                    ), "AlbumDetailFragment", mContext
+                    AlbumDetailFragment(arraylist!![adapterPosition].id, arraylist[adapterPosition].title), "AlbumDetailFragment", mContext
                 )
             }
         }

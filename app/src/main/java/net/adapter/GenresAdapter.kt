@@ -72,20 +72,16 @@ class GenresAdapter(data: ArrayList<GenersModel>, context: Context, activity: Ac
 //                        mInterstitialAd!!.show()
 //                    } else {
                         GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                            GenresDetailFragment.newInstance(
-                                dataSet[position].generId,
+                            GenresDetailFragment(dataSet[position].generId,
                                 dataSet[position].generName,
-                                dataSet[position].albumId
-                            ), "GenresDetailFragment", activity
+                                dataSet[position].albumId), "GenresDetailFragment", activity
                         )
 //                    }
                 } else {
                     GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                        GenresDetailFragment.newInstance(
-                            dataSet[position].generId,
+                        GenresDetailFragment(dataSet[position].generId,
                             dataSet[position].generName,
-                            dataSet[position].albumId
-                        ), "GenresDetailFragment", activity
+                            dataSet[position].albumId), "GenresDetailFragment", activity
                     )
                 }
             }

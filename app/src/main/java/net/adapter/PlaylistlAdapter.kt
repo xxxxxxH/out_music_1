@@ -74,20 +74,16 @@ class PlaylistlAdapter(data: ArrayList<AlertPlayList>, context: Context, activit
 //                        mInterstitialAd!!.show()
 //                    } else {
                         GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                            PlaylistDetaillFragment().newInstance(
-                                dataSet[position].id,
+                            PlaylistDetaillFragment(dataSet[position].id,
                                 dataSet[position].img_url,
-                                dataSet[position].title
-                            ), "MyPlaylistDetaillFragment", activity
+                                dataSet[position].title), "MyPlaylistDetaillFragment", activity
                         )
 //                    }
                 } else {
                     GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransition(
-                        PlaylistDetaillFragment().newInstance(
-                            dataSet[position].id,
+                        PlaylistDetaillFragment(dataSet[position].id,
                             dataSet[position].img_url,
-                            dataSet[position].title
-                        ), "MyPlaylistDetaillFragment", activity
+                            dataSet[position].title), "MyPlaylistDetaillFragment", activity
                     )
                 }
             }

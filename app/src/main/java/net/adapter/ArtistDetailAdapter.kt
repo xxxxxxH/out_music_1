@@ -26,23 +26,23 @@ class ArtistDetailAdapter(
 ) :
     RecyclerView.Adapter<ArtistDetailAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var txt_song_name: TextView
-        var txt_song_artist: TextView
-        var txt_artist: TextView
-        var img_song: ImageView
-        var cardView: CardView
-        var linear_more: LinearLayout
-        var albumsRecyclerView: RecyclerView
+        var txt_song_name: TextView?=null
+        var txt_song_artist: TextView?=null
+        var txt_artist: TextView?=null
+        var img_song: ImageView?=null
+        var cardView: CardView?=null
+        var linear_more: LinearLayout?=null
+        var albumsRecyclerView: RecyclerView?=null
 
         init {
-            txt_song_name = itemView.findViewById<View>(R.id.txt_song_name) as TextView
-            txt_artist = itemView.findViewById<View>(R.id.txt_artist) as TextView
-            txt_song_artist = itemView.findViewById<View>(R.id.txt_songs_artist) as TextView
-            img_song = itemView.findViewById<View>(R.id.img_song) as ImageView
-            cardView = itemView.findViewById<View>(R.id.card_view) as CardView
-            linear_more = itemView.findViewById<View>(R.id.linear_more) as LinearLayout
+            txt_song_name = itemView.findViewById<TextView>(R.id.txt_song_name)
+            txt_artist = itemView.findViewById<TextView>(R.id.txt_artist)
+            txt_song_artist = itemView.findViewById<TextView>(R.id.txt_songs_artist)
+            img_song = itemView.findViewById<ImageView>(R.id.img_song)
+            cardView = itemView.findViewById<CardView>(R.id.card_view)
+            linear_more = itemView.findViewById<LinearLayout>(R.id.linear_more)
             albumsRecyclerView =
-                itemView.findViewById<View>(R.id.recycler_view_album) as RecyclerView
+                itemView.findViewById<RecyclerView>(R.id.recycler_view_album)
         }
     }
 
@@ -61,15 +61,15 @@ class ArtistDetailAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, listPosition: Int) {
         if (getItemViewType(listPosition) == 0) {
             //nothing
-            setUpAlbums(holder.albumsRecyclerView)
+            setUpAlbums(holder.albumsRecyclerView!!)
         } else {
             val songsModel = dataSet!![listPosition - 1]
-            holder.txt_artist.text = "Album: "
-            holder.txt_song_name.text = songsModel.title
-            holder.txt_song_artist.text = songsModel.album
+            holder.txt_artist!!.text = "Album: "
+            holder.txt_song_name!!.text = songsModel.title
+            holder.txt_song_artist!!.text = songsModel.album
             Picasso.get().load(songsModel.img_uri).placeholder(R.drawable.musicalicon)
                 .error(R.drawable.musicalicon).into(holder.img_song)
-            holder.cardView.setOnClickListener {
+            holder.cardView!!.setOnClickListener {
                 if (dataSet != null) {
                     MusicPlayerControls.startSongsWithQueue(
                         context,
@@ -79,7 +79,7 @@ class ArtistDetailAdapter(
                     )
                 }
             }
-            holder.img_song.setOnClickListener {
+            holder.img_song!!.setOnClickListener {
                 MusicPlayerControls.startSongsWithQueue(
                     context,
                     dataSet,
@@ -87,7 +87,7 @@ class ArtistDetailAdapter(
                     "artistdetail"
                 )
             }
-            holder.linear_more.setOnClickListener {
+            holder.linear_more!!.setOnClickListener {
                 GlobalApp.showPopUp(
                     holder.linear_more, context, activity,
                     dataSet[listPosition - 1]
