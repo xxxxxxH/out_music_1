@@ -6,10 +6,7 @@ import android.media.audiofx.Equalizer
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -23,6 +20,7 @@ import net.basicmodel.R
 import net.general.GlobalApp
 import net.utils.PreferencesUtility
 import net.utils.SongLoader
+import net.utils.SortOrder
 
 class SongsFragment : Fragment() {
     var adapter: SongsAdapter? = null
@@ -92,6 +90,59 @@ class SongsFragment : Fragment() {
         return view
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        this.menu = menu
+        inflater.inflate(R.menu.songmenu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_sort_by_az -> {
+                mPreferences!!.songSortOrder = SortOrder.SongSortOrder.SONG_A_Z
+                reloadAdapter()
+                return true
+            }
+            R.id.menu_sort_by_za -> {
+                mPreferences!!.songSortOrder = SortOrder.SongSortOrder.SONG_Z_A
+                reloadAdapter()
+                return true
+            }
+            R.id.menu_sort_by_artist -> {
+                mPreferences!!.songSortOrder = SortOrder.SongSortOrder.SONG_ARTIST
+                reloadAdapter()
+                return true
+            }
+            R.id.menu_sort_by_album -> {
+                mPreferences!!.songSortOrder = SortOrder.SongSortOrder.SONG_ALBUM
+                reloadAdapter()
+                return true
+            }
+            R.id.menu_sort_by_year -> {
+                mPreferences!!.songSortOrder = SortOrder.SongSortOrder.SONG_YEAR
+                reloadAdapter()
+                return true
+            }
+            R.id.menu_sort_by_duration -> {
+                mPreferences!!.songSortOrder = SortOrder.SongSortOrder.SONG_DURATION
+                reloadAdapter()
+                return true
+            }
+            R.id.action_search -> {
+                GlobalApp.sharedInstance(activity)!!
+                    .fragmentReplaceTransition(
+                        SearchFragment(),
+                        "SearchFragment",
+                        requireActivity()
+                    )
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     fun setEqualizer() {
         sp = requireContext().getSharedPreferences(
             requireContext().getString(R.string.preference_file_key),
@@ -151,6 +202,13 @@ class SongsFragment : Fragment() {
                 bassBoost!!.enabled = false
             }
         }
+    }
+
+    private fun reloadAdapter() {
+        Handler().postDelayed({
+            loadSongs()
+                .execute("")
+        }, 50)
     }
 
     inner class loadSongs : AsyncTask<String?, Void?, String>() {

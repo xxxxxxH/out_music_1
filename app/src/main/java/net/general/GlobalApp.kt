@@ -614,9 +614,8 @@ object GlobalApp {
         mPopupMenu.setOnMenuItemClickListener { item ->
             if (item.title == "Watch") {
                 val intent = Intent(act, VideoPlayerActivity::class.java)
-                intent.putExtra("videoFilePath", vidModel.filePath)
-                intent.putExtra("pos", pos)
-                intent.putExtra("title", vidModel.title)
+                intent.putExtra("url", vidModel.filePath)
+                intent.putExtra("name", vidModel.title)
                 act.startActivity(intent)
             } else if (item.title == "Delete") {
                 deleteVideo(act, vidModel, callFrom, videoAdapter)

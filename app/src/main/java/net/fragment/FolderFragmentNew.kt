@@ -127,8 +127,8 @@ class FolderFragmentNew : Fragment(), OnItemClickListener {
 
         override fun onPostExecute(result: List<FolderSongs>) {
             super.onPostExecute(result)
+            mProgressBar!!.visibility = View.GONE
             if (result.isNotEmpty()) {
-                mProgressBar!!.visibility = View.GONE
                 folderAdapter = FolderAudioAdapter(
                     app!!.instance,
                     activity,

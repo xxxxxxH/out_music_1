@@ -61,7 +61,7 @@ public class MusicPlayerControls {
 //        SongsMainFragment.fillQueueAdapter();
 
 //        SongsMainFragment.playerViewpager.setCurrentItem(position);
-        EventBus.getDefault().post(new MessageEvent("setCurrentItem",position));
+//        EventBus.getDefault().post(new MessageEvent("setCurrentItem",position));
 
         new AsyncTask() {
                 @Override

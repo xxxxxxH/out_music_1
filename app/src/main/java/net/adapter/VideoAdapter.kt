@@ -131,24 +131,22 @@ class VideoAdapter(context: Context, data: ArrayList<Videos?>, listener: OnItemC
 //                            mInterstitialAd!!.show()
 //                        } else {
                             val intent = Intent(context, VideoPlayerActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                             intent.putExtra(
-                                "videoFilePath",
+                                "url",
                                 dataSet[position]!!.filePath
                             )
-                            intent.putExtra("pos", position)
-                            intent.putExtra("title", dataSet[position]!!.title)
+                            intent.putExtra("name", dataSet[position]!!.title)
                             context.startActivity(intent)
 //                        }
                     } else {
                         val intent = Intent(context, VideoPlayerActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         intent.putExtra(
-                            "videoFilePath",
+                            "url",
                             dataSet[position]!!.filePath
                         )
-                        intent.putExtra("pos", position)
-                        intent.putExtra("title", dataSet[position]!!.title)
+                        intent.putExtra("name", dataSet[position]!!.title)
                         context.startActivity(intent)
                     }
                 }

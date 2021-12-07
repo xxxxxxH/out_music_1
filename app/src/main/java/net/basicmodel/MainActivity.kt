@@ -1,5 +1,8 @@
 package net.basicmodel
 
+//import com.google.android.gms.ads.AdView
+//import com.google.android.gms.ads.InterstitialAd
+import android.Manifest
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
+import com.example.weeboos.permissionlib.PermissionRequest
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
-//import com.google.android.gms.ads.AdView
-//import com.google.android.gms.ads.InterstitialAd
 import kotlinx.android.synthetic.main.activity_common_main.*
 import kotlinx.android.synthetic.main.include_flake_layout.*
 import net.event.MessageEvent
@@ -26,6 +28,7 @@ import net.utils.PreferencesUtility
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var drawer: DrawerLayout? = null
@@ -37,23 +40,43 @@ class MainActivity : AppCompatActivity() {
     var layout: RelativeLayout? = null
 //    var mInterstitialAd: InterstitialAd? = null
 //    var exit_dialog_adview: AdView? = null
+
+    private val permissions = arrayOf(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_common_main)
         EventBus.getDefault().register(this)
-        activity = this
-        if (GlobalApp.sharedpreferences == null) {
-            GlobalApp.savePrefrence(this)
-        }
+        PermissionRequest.getInstance().build(this).requestPermission(object :
+            PermissionRequest.PermissionListener {
+            override fun permissionGranted() {
+                activity = this@MainActivity
+                if (GlobalApp.sharedpreferences == null) {
+                    GlobalApp.savePrefrence(this@MainActivity)
+                }
 
-        mPreferences = PreferencesUtility.getInstance(activity)
-        is_show_snowfallview = mPreferences!!.isShowSnawFall
+                mPreferences = PreferencesUtility.getInstance(activity)
+                is_show_snowfallview = mPreferences!!.isShowSnawFall
 
-        init()
-        GlobalApp.fragmentReplaceTransitionCommon(
-            SongsMainFragment(), "Songs",
-            activity as MainActivity
-        )
+                init()
+                GlobalApp.fragmentReplaceTransitionCommon(
+                    SongsMainFragment(), "Songs",
+                    activity as MainActivity
+                )
+            }
+
+            override fun permissionDenied(permissions: ArrayList<String>?) {
+                finish()
+            }
+
+            override fun permissionNeverAsk(permissions: ArrayList<String>?) {
+                finish()
+            }
+        }, permissions)
+
 
     }
 
@@ -95,14 +118,14 @@ class MainActivity : AppCompatActivity() {
 //                if (mInterstitialAd!!.isLoaded) {
 //                    mInterstitialAd!!.show()
 //                } else {
-                    supportFragmentManager.popBackStack(
-                        "Settings",
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
-                    )
-                    GlobalApp.fragmentReplaceTransitionCommon(
-                        SettingMainFragment(), "Settings",
-                        activity!!
-                    )
+                supportFragmentManager.popBackStack(
+                    "Settings",
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                GlobalApp.fragmentReplaceTransitionCommon(
+                    SettingMainFragment(), "Settings",
+                    activity!!
+                )
 //                }
             }
         })
