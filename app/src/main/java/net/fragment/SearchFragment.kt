@@ -69,16 +69,12 @@ class SearchFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable) {
                 val s1 = ed_search!!.text.toString().trim { it <= ' ' }
-                if (s1.length == 0) {
+                if (s1.isEmpty()) {
                     try {
                         mediaItemsArrayList!!.clear()
                         searchAdapter!!.notifyDataSetChanged()
                     } catch (e: Exception) {
-                        searchAdapter = SearchAdapter(
-                            mediaItemsArrayList!!,
-                            requireActivity(),
-                            requireContext()
-                        )
+                        searchAdapter = SearchAdapter(mediaItemsArrayList!!,requireActivity(),requireContext())
                         searchRecyclerView!!.adapter = searchAdapter
                         e.printStackTrace()
                     }
