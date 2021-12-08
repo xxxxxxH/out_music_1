@@ -71,7 +71,7 @@ class CropImageFragment : Fragment() {
                     }
                     // MainActivity.img_main_background.setImageURI(Uri.parse(img_path))
                     EventBus.getDefault().post(MessageEvent("setImageURI", Uri.parse(img_path)))
-                    ThemeFragment.bmpPic = BitmapFactory.decodeFile(img_path)
+                    //ThemeFragment.bmpPic = BitmapFactory.decodeFile(img_path)
                     Toast.makeText(context, "Background set successfully", Toast.LENGTH_SHORT)
                         .show()
                     if (GlobalApp.sharedpreferences == null) {
@@ -81,15 +81,15 @@ class CropImageFragment : Fragment() {
                     editor.putString(GlobalApp.PREFREANCE_MAIN_IMAGE_BACKGROUND, img_path + "")
                     //  editor.putString(GlobalApp.PREFREANCE_MAIN_DEFAULT_BACKGROUND, GlobalApp.integerArrayList.get(0) + "");
                     //  editor.commit();
-                    ThemeFragment.rel_seekbar!!.visibility = View.VISIBLE
+                    //ThemeFragment.rel_seekbar!!.visibility = View.VISIBLE
                     editor.putInt(GlobalApp.BLUR_SEEKBAR_POS, 0)
                     editor.putInt(
                         GlobalApp.TRANCPARENT_COLOR,
                         GlobalApp.TRANCPARENT_COLOR_DEFAULT_VALUE
                     )
                     editor.putInt(GlobalApp.TRANCPARENT_COLOR_SEEKBAR_POS, 0)
-                    ThemeFragment.seek_blur!!.progress = 0
-                    ThemeFragment.seek_transparent!!.progress = 0
+                    //ThemeFragment.seek_blur!!.progress = 0
+                    //ThemeFragment.seek_transparent!!.progress = 0
 //                    MainActivity.img_main_background_color.setBackgroundColor(GlobalApp.TRANCPARENT_COLOR_DEFAULT_VALUE)
                     EventBus.getDefault().post(
                         MessageEvent(

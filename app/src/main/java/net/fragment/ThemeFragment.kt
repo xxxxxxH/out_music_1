@@ -22,51 +22,42 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.theme_fragment.*
 import net.adapter.SnowFlakeAdapter
 import net.adapter.ThemeAdapter
 import net.basicmodel.R
-import net.event.MessageEvent
-import net.general.GeneralFunction
 import net.general.GlobalApp
 import net.utils.PreferencesUtility
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 class ThemeFragment : Fragment() {
+    var rc_background: RecyclerView? = null
+    var rc_flake: RecyclerView? = null
     var backgroundAdapter: ThemeAdapter? = null
     var snowFlakeAdapter: SnowFlakeAdapter? = null
+    var toolbar: Toolbar? = null
     private var editor: SharedPreferences.Editor? = null
+//    var appBarLayout: AppBarLayout? = null
     var backgroundOpacity = 0
     var temp_transpant_progress = 0
     var blur_seekbar_pos = 0
     var img_path: String? = null
-    var mPreferences: PreferencesUtility? = null
-    var is_show_snowfall = false
-
-    // String main_image_background = "";
-    var opacity_value = 0
-    var is_show_snowfallview = false
-    private var sp: SharedPreferences? = null
-
-    var rc_background: RecyclerView? = null
-    var rc_flake: RecyclerView? = null
-    var rel_seekbar: RelativeLayout? = null
-    var toolbar: Toolbar? = null
-
-    private val RESULT_LOAD_IMAGE = 1
-
-    var appBarLayout: AppBarLayout? = null
-    var seek_transparent: SeekBar? = null
-    var seek_blur:SeekBar? = null
     var img_gallary: ImageView? = null
     var txt_snow_fall_effect: TextView? = null
     var checkbox_snow: AppCompatCheckBox? = null
     var rel_snow_check: RelativeLayout? = null
+    var rel_seekbar: RelativeLayout? = null
+    var mPreferences: PreferencesUtility? = null
+    var is_show_snowfall = false
+    var seek_transparent:SeekBar?=null
+    var seek_blur:SeekBar?=null
+    var opacity_value = 0
+    private val RESULT_LOAD_IMAGE = 1
 
     // String main_image_background = "";
+
+    // String main_image_background = "";
+    private var sp: SharedPreferences? = null
     var bmpPic: Bitmap? = null
+    var is_show_snowfallview = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (GlobalApp.sharedpreferences == null) {
@@ -85,9 +76,8 @@ class ThemeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.theme_fragment, container, false)
-        EventBus.getDefault().register(this)
+    ): View {
+       val view = inflater.inflate(R.layout.theme_fragment, container, false)
         setHasOptionsMenu(true)
         mPreferences = PreferencesUtility.getInstance(context)
         img_path =
@@ -95,15 +85,15 @@ class ThemeFragment : Fragment() {
         temp_transpant_progress =
             GlobalApp.sharedpreferences!!.getInt(GlobalApp.TRANCPARENT_COLOR_SEEKBAR_POS, 0)
         blur_seekbar_pos = GlobalApp.sharedpreferences!!.getInt(GlobalApp.BLUR_SEEKBAR_POS, 0)
-        if (GlobalApp.integerArrayList_small.size == 0) {
+//        if (GlobalApp.integerArrayList_small.size === 0) {
 //            SplashActivity.smallBackgroundImage()
-        }
-        if (GlobalApp.integerArrayList.size == 0) {
+//        }
+//        if (GlobalApp.integerArrayList.size() === 0) {
 //            SplashActivity.mainBackgroundImage()
-        }
-        if (GlobalApp.flakeArrayList.size == 0) {
+//        }
+//        if (GlobalApp.flakeArrayList.size() === 0) {
 //            SplashActivity.flakeImage()
-        }
+//        }
         Initialize(view)
         editor = GlobalApp.sharedpreferences!!.edit()
         seek_transparent!!.progress = temp_transpant_progress
@@ -113,22 +103,23 @@ class ThemeFragment : Fragment() {
         if (img_path == "") {
             rel_seekbar!!.visibility = View.GONE
         }
-        showIntrestialAds(activity)
+        toolbar = view.findViewById<View>(R.id.toolbar) as Toolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        toolbar!!.title = "Select Theme"
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(true)
+        toolbar!!.setNavigationOnClickListener {
+            editor!!.putInt(GlobalApp.TRANCPARENT_COLOR, backgroundOpacity)
+            editor!!.putInt(GlobalApp.TRANCPARENT_COLOR_SEEKBAR_POS, temp_transpant_progress)
+            editor!!.commit()
+            (activity as AppCompatActivity?)!!.supportFragmentManager.popBackStack()
+        }
         bmpPic = BitmapFactory.decodeFile(img_path)
         seek_transparent!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 temp_transpant_progress = progress
                 backgroundOpacity = progress * 0x03000000 + 0x000000
-//                MainActivity.img_main_background_color.setBackgroundColor(backgroundOpacity)
-                EventBus.getDefault().post(
-                    MessageEvent(
-                        "img_main_background_color",
-                        backgroundOpacity
-                    )
-                )
+               // MainActivity.img_main_background_color.setBackgroundColor(backgroundOpacity)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -140,27 +131,14 @@ class ThemeFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 val radius = seek_blur!!.progress
                 if (radius <= 0) {
-//                    MainActivity.img_main_background.setImageBitmap(bmpPic)
-                    EventBus.getDefault().post(
-                        MessageEvent(
-                            "setImageBitmap",
-                            bmpPic
-                        )
-                    )
+                   // MainActivity.img_main_background.setImageBitmap(bmpPic)
                 } else {
-//                    MainActivity.img_main_background.setImageBitmap(
+                   // MainActivity.img_main_background.setImageBitmap(
 //                        GeneralFunction.createBlurBitmap(
-//                            bmpPic, radius.toFloat(), activity
+//                            bmpPic,
+//                            radius.toFloat(), activity
 //                        )
 //                    )
-                    EventBus.getDefault().post(
-                        MessageEvent(
-                            "setImageBitmap",
-                            GeneralFunction.createBlurBitmap(
-                                bmpPic, radius.toFloat(), activity
-                            )
-                        )
-                    )
                 }
                 editor!!.putInt(GlobalApp.BLUR_SEEKBAR_POS, radius)
                 editor!!.commit()
@@ -168,8 +146,7 @@ class ThemeFragment : Fragment() {
         })
         img_gallary!!.setOnClickListener {
             GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransitionSetting(
-                CropImageFragment().newInstance(""),
-                "CropImageFragment",
+                CropImageFragment().newInstance(""), "CropImageFragment",
                 requireActivity()
             )
         }
@@ -186,23 +163,20 @@ class ThemeFragment : Fragment() {
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
             val selectedImage = data.data
             val filePath = arrayOf(MediaStore.Images.Media.DATA)
-            val c =
-                requireContext().contentResolver.query(selectedImage!!, filePath, null, null, null)
+            val c = requireContext().contentResolver.query(selectedImage!!, filePath, null, null, null)
             if (c != null) {
                 c.moveToFirst()
                 val columnIndex = c.getColumnIndex(filePath[0])
                 val picturePath = c.getString(columnIndex)
                 c.close()
-//                if (mInterstitialAd!!.isLoaded) {
-//                    mInterstitialAd!!.show()
+//                if (mInterstitialAd.isLoaded()) {
+//                    mInterstitialAd.show()
 //                } else {
-//
+                    GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransitionSetting(
+                        CropImageFragment().newInstance(picturePath), "CropImageFragment",
+                        requireActivity()
+                    )
 //                }
-                GlobalApp.sharedInstance(activity)!!.fragmentReplaceTransitionSetting(
-                    CropImageFragment().newInstance(picturePath),
-                    "CropImageFragment",
-                    requireActivity()
-                )
             }
         }
     }
@@ -220,56 +194,51 @@ class ThemeFragment : Fragment() {
         editor!!.commit()
     }
 
-    private fun Initialize(view: View) {
+    private fun Initialize(view :View) {
         txt_snow_fall_effect = view.findViewById<View>(R.id.txt_snow_fall_effect) as TextView
         checkbox_snow = view.findViewById<View>(R.id.checkbox_snow) as AppCompatCheckBox
         rel_snow_check = view.findViewById<View>(R.id.rel_check) as RelativeLayout
-
-        ThemeFragment.rel_seekbar = view.findViewById<View>(R.id.rel_seekbar) as RelativeLayout
-        ThemeFragment.rel_seekbar = view.findViewById<View>(R.id.rel_seekbar) as RelativeLayout
+        rel_seekbar = view.findViewById<View>(R.id.rel_seekbar) as RelativeLayout
+        rel_seekbar = view.findViewById<View>(R.id.rel_seekbar) as RelativeLayout
         rc_flake = view.findViewById<View>(R.id.rc_flake) as RecyclerView
         rc_background = view.findViewById<View>(R.id.rc_background) as RecyclerView
-
-        img_gallary = view.findViewById<View>(R.id.img_gallary) as ImageView
-        appBarLayout = view.findViewById<View>(R.id.appbar) as AppBarLayout
-        ThemeFragment.seek_blur = view.findViewById<View>(R.id.seek_blur) as SeekBar
-        ThemeFragment.seek_transparent = view.findViewById<View>(R.id.seek_transparent) as SeekBar
-
         rc_background!!.setHasFixedSize(true)
         rc_background!!.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
         rc_flake!!.setHasFixedSize(true)
         rc_flake!!.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
+        img_gallary = view.findViewById<View>(R.id.img_gallary) as ImageView
+        //appBarLayout = view.findViewById<View>(R.id.appbar) as AppBarLayout
+        seek_blur = view.findViewById<View>(R.id.seek_blur) as SeekBar
         seek_blur!!.max = 25
+        seek_transparent = view.findViewById<View>(R.id.seek_transparent) as SeekBar
         seek_transparent!!.max = 80
         Handler().postDelayed({
-            snowFlakeAdapter =
-                SnowFlakeAdapter(GlobalApp.flakeArrayList, requireContext(), requireActivity())
+            snowFlakeAdapter = SnowFlakeAdapter(
+                GlobalApp.flakeArrayList,requireContext(),
+                requireActivity()
+            )
             rc_flake!!.adapter = snowFlakeAdapter
-            backgroundAdapter =
-                ThemeAdapter(GlobalApp.integerArrayList_small, requireContext(), requireActivity())
+            backgroundAdapter = ThemeAdapter(
+                GlobalApp.integerArrayList_small,
+                requireContext(),
+                requireActivity()
+            )
             rc_background!!.adapter = backgroundAdapter
         }, 50)
-        rel_check!!.setOnClickListener {
+        rel_snow_check!!.setOnClickListener {
             if (is_show_snowfall) {
                 checkbox_snow!!.isChecked = false
                 is_show_snowfall = false
-//                MainActivity.toggal_snow_fall_view(-1)
-                EventBus.getDefault().post(MessageEvent("toggal_snow_fall_view", -1))
+                //MainActivity.toggal_snow_fall_view(-1)
                 mPreferences!!.isShowSnawFall = false
                 txt_snow_fall_effect!!.visibility = View.VISIBLE
                 rc_flake!!.visibility = View.GONE
             } else {
                 checkbox_snow!!.isChecked = true
                 is_show_snowfall = true
-//                MainActivity.toggal_snow_fall_view(mPreferences!!.showSnawFallImagePos)
-                EventBus.getDefault().post(
-                    MessageEvent(
-                        "toggal_snow_fall_view",
-                        mPreferences!!.showSnawFallImagePos
-                    )
-                )
+                //MainActivity.toggal_snow_fall_view(mPreferences!!.showSnawFallImagePos)
                 mPreferences!!.isShowSnawFall = true
                 txt_snow_fall_effect!!.visibility = View.GONE
                 rc_flake!!.visibility = View.VISIBLE
@@ -280,68 +249,12 @@ class ThemeFragment : Fragment() {
             checkbox_snow!!.isChecked = true
             txt_snow_fall_effect!!.visibility = View.GONE
             rc_flake!!.visibility = View.VISIBLE
-//            MainActivity.toggal_snow_fall_view(mPreferences.getShowSnawFallImagePos())
-            EventBus.getDefault()
-                .post(MessageEvent("toggal_snow_fall_view", mPreferences!!.showSnawFallImagePos))
+            //MainActivity.toggal_snow_fall_view(mPreferences!!.showSnawFallImagePos)
         } else {
             checkbox_snow!!.isChecked = false
             txt_snow_fall_effect!!.visibility = View.VISIBLE
             rc_flake!!.visibility = View.GONE
-//            MainActivity.toggal_snow_fall_view(-1)
-            EventBus.getDefault().post(MessageEvent("toggal_snow_fall_view", -1))
-        }
-    }
-
-    fun showIntrestialAds(act: Activity?) {
-//        val adRequest: AdRequest
-//        adRequest = AdRequest.Builder().build()
-//        mInterstitialAd = InterstitialAd(act)
-//        if (Ad_Id_File.isActive_adMob) {
-//            // set the ad unit ID
-//            mInterstitialAd!!.adUnitId = Ad_Id_File.ADMOB_INTERSTITIAL_PUB_ID
-//            // Load ads into Interstitial Ads
-//            mInterstitialAd!!.loadAd(adRequest)
-//            mInterstitialAd!!.adListener = object : AdListener() {
-//                override fun onAdLoaded() {}
-//                override fun onAdClosed() {
-//                    super.onAdClosed()
-//                    //  mInterstitialAd.loadAd(adRequest);
-//                    val i = Intent(
-//                        Intent.ACTION_PICK,
-//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//                    )
-//                    startActivityForResult(i, RESULT_LOAD_IMAGE)
-//                }
-//
-//                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-//                    super.onAdFailedToLoad(loadAdError)
-//                }
-//            }
-//        }
-    }
-
-    companion object {
-        var rel_seekbar: RelativeLayout? = null
-        private const val RESULT_LOAD_IMAGE = 1
-        var seek_transparent: SeekBar? = null
-        var seek_blur: SeekBar? = null
-        var bmpPic: Bitmap? = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: MessageEvent) {
-        val msg = event.getMessage()
-        when (msg[0]) {
-            "ThemeFragment" -> {
-                rel_seekbar!!.visibility = View.GONE
-                seek_blur!!.progress = 0
-                seek_transparent!!.progress = 0
-            }
+            //MainActivity.toggal_snow_fall_view(-1)
         }
     }
 }
